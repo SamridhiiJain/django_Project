@@ -32,3 +32,6 @@ def register_view(request):
             return redirect('login')
     return render(request,'register.html')
 
+def logout_view(request):
+    logout(request)
+    return redirect('index')
