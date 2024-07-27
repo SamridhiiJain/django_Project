@@ -17,11 +17,7 @@
             crossorigin="anonymous"
         />
         <style>
-            main{
-                display: grid;
-                place-items: center;
-                height: 100dvh;
-            }
+        
         </style>
     </head>
     
@@ -30,7 +26,26 @@
             {% include 'components/menu.html' %}  
             <!-- jinja tag -->
         </header>
-        <main><h1>welcome to first website</h1></main>
+        <main><h1>welcome to first website</h1>
+            <div>
+                <form action="{% url 'add_task' %}" method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button>submit</button>
+                </form>
+            </div>
+        <div>
+            <ul>
+                {% for item in tasks %}
+                <li>
+                    {{item.name}}
+                </li>
+                {% empty %}
+                <li>No task added</li>
+                {% endfor %}
+            </ul>
+        </div>
+        </main>
         
         <footer>
             <!-- place footer here -->

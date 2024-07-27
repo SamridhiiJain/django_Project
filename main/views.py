@@ -1,13 +1,29 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate,login,logout
-
+from .forms import TaskForm
+from .models import Task
 # for including databases
 
 # Create your views here.
 
 def index(request):
-    return render(request ,'index.html')
+    task_list = Task.objects.all() #select * from tasks
+    return render(request ,'index.html' ,{
+        'tasks' :task_list,
+        'form' : TaskForm()
+    })
+
+def add_task(request):
+    form = TaskForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('index')
+def complete_task(request, id):
+    task=Task.objestd.get(id=id)#select *from where id =id
+    task.comleted= True 
+    task.save()# update task set
+    return redirect('index')  
 
 def login_view(request):
     if request.method=='POST':
