@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Task
+from .models import Task, Movie
 
 #Model from connects it to the model
 #simple from 
@@ -8,3 +8,8 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields= ['name']
+
+    class MovieForm(forms.ModelForm):
+    class Meta:
+        model = Movie
+        field = '_all_' # double underscore with all calls all the fields(it will include all the fields of movie)

@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from main.views import index,login_view, register_view,logout_view
-from main.views import add_task, complete_task
+from main.views import add_task, complete_task, movies_view, movie_add_view,movie_edit_view, movie_delete_view, movie_search_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +31,14 @@ urlpatterns = [
     path('logout' , logout_view, name='logout'),
     path('add/' , add_task, name='add_task'),
     path('complete/<int:id>/', complete_task, name ='complete'),
+     #crud operations
+    path('movies/view', movies_view, name='view_movie'),
+    path('movies/add', movie_add_view, name='add_movie'),
+    path('movies/edit/<int:id>/', movie_edit_view, name='edit_movie'),
+    path('movies/delete/<int:id>/', movie_delete_view, name='delete_movie'),
+    path('movies/search', movie_search_view, name='search_movie'),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

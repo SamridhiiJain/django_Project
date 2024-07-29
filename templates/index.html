@@ -26,7 +26,7 @@
             {% include 'components/menu.html' %}  
             <!-- jinja tag -->
         </header>
-        <main><h1>welcome to first website</h1>
+        <main>
             <div>
                 <form action="{% url 'add_task' %}" method="post">
                     {% csrf_token %}
@@ -35,15 +35,24 @@
                 </form>
             </div>
         <div>
-            <ul>
+            <ul class="list-group mt-4">
+                        
                 {% for item in tasks %}
-                <li>
-                    {{item.name}}
-                </li>
+                {% if not item.completed %}
+                    <li class="list-group-item d-flex">
+                        <!-- {{item.name}}//double curly braces are used for showing the value of a variable// -->
+                        {{item.name}}
+                        <a class="nav-link ms-auto" href="{% url 'complete' item.id %}">delete</a>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item d-flex">
+                     <del> {{item.name}}</del>
+                    </li>
+                    {% endif %}
                 {% empty %}
-                <li>No task added</li>
+                    <li class="list-group-item">no task added</li>
                 {% endfor %}
-            </ul>
+                                </ul>
         </div>
         </main>
         

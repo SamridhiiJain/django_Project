@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate,login,logout
-from .forms import TaskForm
-from .models import Task
+from .forms import TaskForm,MovieForm
+from .models import Task, Movie
 # for including databases
 
 # Create your views here.
@@ -51,3 +51,36 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def movie_view(request):
+    movies = Movie.objects.all()
+    return render(request, 'movies/view.html', {
+        'movies':movies
+    })
+def movie_add_view(request):
+    form = MovieForm()
+    if request.method == 'POST':
+        form = MovieForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('view_movies')
+        return render(request,'movies/add.html',{'form':form}
+                      )
+    
+def movie_edit_view(request, id):
+    movie= Movie.objects.get(id=id)
+    form = MovieForm(instance=movie)
+    if request.method == 'POST':
+        form = MovieForm(request.POST, request.FILES, instance=movie)
+        if form.is_valid():
+            form.save()
+            return redirect('view_movies')
+        return render(request,'movies/edit.html',{'form':form}
+                      )
+    
+def movie_delete_view(request, id):
+    movie = Movie.objects.get(id=id)
+    movie.delete()
+    return redirect('view_movies')
+
+def search_movie(request):
