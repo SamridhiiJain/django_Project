@@ -32,7 +32,7 @@ urlpatterns = [
     path('add/' , add_task, name='add_task'),
     path('complete/<int:id>/', complete_task, name ='complete'),
      #crud operations
-    path('movies/view', movies_view, name='view_movie'),
+    path('movies/view', movies_view, name='view_movies'),
     path('movies/add', movie_add_view, name='add_movie'),
     path('movies/edit/<int:id>/', movie_edit_view, name='edit_movie'),
     path('movies/delete/<int:id>/', movie_delete_view, name='delete_movie'),

@@ -9,7 +9,7 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields= ['name']
 
-    class MovieForm(forms.ModelForm):
-    class Meta:
+class MovieForm(forms.ModelForm):
+     class Meta:
         model = Movie
-        field = '_all_' # double underscore with all calls all the fields(it will include all the fields of movie)
+        fields = '__all__' # double underscore with all calls all the fields(it will include all the fields of movie)
